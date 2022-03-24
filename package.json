@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "@aws-sdk/client-cognito-identity": "^3.56.0",
     "@aws-sdk/client-lambda": "^3.55.0",
+    "@aws-sdk/credential-provider-cognito-identity": "^3.56.0",
     "fastify": "^3.27.4"
   },
   "devDependencies": {

@@ -1,11 +1,18 @@
 import fastify from 'fastify';
 import { LambdaClient, InvokeCommand } from '@aws-sdk/client-lambda';
+import { fromCognitoIdentityPool } from "@aws-sdk/credential-provider-cognito-identity";
+import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";
 
-export const lambda_client = new LambdaClient({
-//   accessKeyId: process.env['AWS_ACCESS_KEY_ID'],
-//   secretAccessKey: process.env['AWS_SECRET_ACCESS_KEY'],
-  region: 'us-east-1',
-  endpoint: process.env['AWS_ENDPOINT_OVERRIDE']
+const REGION: string = process.env['REGION'] || '';
+const IDENTITY_POOL_ID: string = process.env['IDENTITY_POOL_ID'] || '';
+
+const lambda_client = new LambdaClient({
+    credentials: fromCognitoIdentityPool({
+        client: new CognitoIdentityClient({ region: REGION }),
+        identityPoolId: IDENTITY_POOL_ID
+    }),
+    region: REGION,
+    endpoint: process.env['AWS_ENDPOINT_OVERRIDE']
 });
 const app = fastify();
 
