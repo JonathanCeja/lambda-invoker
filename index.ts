@@ -11,8 +11,7 @@ const lambda_client = new LambdaClient({
         client: new CognitoIdentityClient({ region: REGION }),
         identityPoolId: IDENTITY_POOL_ID
     }),
-    region: REGION,
-    endpoint: process.env['AWS_ENDPOINT_OVERRIDE']
+    region: REGION
 });
 const app = fastify();
 
